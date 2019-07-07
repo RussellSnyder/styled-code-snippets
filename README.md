@@ -1,7 +1,13 @@
 # Contentful Code Snippets
 ## Entry Editor Extension for the Contentful CMS
 
+## Features
 
+- All coding styles and syntax highlighting offered from highlight.js
+- Instant re-rendering of previews
+- Ability to pre-determine programming language and/or coding style when instantiating the Content Model in addition to adding new Content
+
+---
 ### Contentful Improvements / Questions
 
 *Extension CLI*
@@ -13,7 +19,7 @@
 
 ## TO RUN
 
-git clone this repo then cd into the holder
+git clone this repo then cd into the folder
 ```
 cd styled-code-snippets
 ```
