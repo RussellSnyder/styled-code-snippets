@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {render} from 'react-dom';
-import hljs from 'highlight.js'
+import hljs from './highlight.min.js'
 import ContentEditable from 'react-contenteditable'
 import {Helmet} from "react-helmet";
 
@@ -23,6 +23,7 @@ import '@contentful/forma-36-react-components/dist/styles.css';
 import '@contentful/forma-36-fcss/dist/styles.css';
 import './index.css';
 import THEMES from './highlightStyles'
+
 
 hljs.configure({useBR: true});
 
