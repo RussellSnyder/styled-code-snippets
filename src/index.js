@@ -4,8 +4,7 @@ import {render} from 'react-dom';
 
 // For testing, use the full highlight.js package
 // TODO add conditional imports based on node environment
-// minimified for production
-// full for test
+// minimified for production and complete for test
 // import hljs from './highlight.min.js'
 import hljs from 'highlight.js'
 
@@ -36,17 +35,17 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
 
-        let defaultTheme, defaultLanguage;
-        if (props.sdk.parameters && props.sdk.parameters.instance) {
-            const { theme, language } = props.sdk.parameters.instance;
-            defaultTheme = theme;
-            defaultLanguage = language
-        }
-
         let {title, language, theme, code} = props.sdk.entry.fields;
 
-        language = defaultLanguage || language.getValue()
-        theme = defaultTheme || theme.getValue()
+        let defaultTheme, defaultLanguage;
+        if (props.sdk.parameters && props.sdk.parameters.instance) {
+            const { theme: themeInstance, language: languageInstance } = props.sdk.parameters.instance;
+            defaultTheme = themeInstance;
+            defaultLanguage = languageInstance
+        }
+
+        language = language && language.getValue() ? language.getValue() : defaultLanguage;
+        theme = theme && theme.getValue() ? theme.getValue() : defaultTheme;
 
         this.state = {
             language,
@@ -58,8 +57,8 @@ export class App extends React.Component {
 
         this.styledCodeContainer = React.createRef();
 
-        this.isLanguageEditable = !defaultTheme;
-        this.isThemeEditable = !defaultLanguage;
+        this.isLanguageEditable = !defaultLanguage;
+        this.isThemeEditable = !defaultTheme;
     }
 
     componentDidMount() {
