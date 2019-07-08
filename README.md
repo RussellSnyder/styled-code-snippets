@@ -1,6 +1,14 @@
 # Contentful Code Snippets
 ## Entry Editor Extension for the Contentful CMS
 
+## Overview
+
+This extension was made using the [Contentful Extentions CLI]("https://github.com/contentful/contentful-extension-cli").
+Testing and a large majority of modeling comes directly from the output generated from 
+```
+    npx @contentful/create-contentful-extension code-snippet
+```
+
 ## Features
 
 - All coding styles and syntax highlighting offered from highlight.js
@@ -33,6 +41,12 @@ npm run start
 ```
 
 ## DEVELOPMENT
+To run tests:
+```
+    npm run test
+```
+Please note that for now, highlight.min.js is not working for tests, so the full version of highlight.js must be imported.
+The full package, however, is too big for contentful hosting.  See TODO in index.js
 
 - If highlight.js builds more styles into their framework, run the following from the project root to extract:
 ```

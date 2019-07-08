@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {render} from 'react-dom';
-import hljs from './highlight.min.js'
+
+// For testing, use the full highlight.js package
+// TODO add conditional imports based on node environment
+// minimified for production
+// full for test
+// import hljs from './highlight.min.js'
+import hljs from 'highlight.js'
+
 import ContentEditable from 'react-contenteditable'
 import {Helmet} from "react-helmet";
-
 import {
     DisplayText,
-    Paragraph,
     SectionHeading,
     TextInput,
-    Textarea,
     FieldGroup,
-    RadioButtonField,
-    SelectField,
     Select,
     Option,
     Form
@@ -25,7 +27,6 @@ import './index.css';
 import THEMES from './highlightStyles'
 
 
-hljs.configure({useBR: true});
 
 export class App extends React.Component {
     static propTypes = {
@@ -35,7 +36,12 @@ export class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const { theme: defaultTheme, language: defaultLanguage } = props.sdk.parameters.instance;
+        let defaultTheme, defaultLanguage;
+        if (props.sdk.parameters) {
+            const { theme, language } = props.sdk.parameters.instance;
+            defaultTheme = theme;
+            defaultLanguage = language
+        }
 
         let {title, language, theme, code} = props.sdk.entry.fields;
 
@@ -65,7 +71,7 @@ export class App extends React.Component {
     generateStyledCode() {
         this.setState(prevState => {
             const { language, code } = prevState
-            if (!code) return
+            if (!code || !language) return
             const styledCode =  hljs.highlight(language, code);
             return {
                 ...prevState,
@@ -99,9 +105,7 @@ export class App extends React.Component {
     onCodeChangeHandler = event => {
         const code = event.target.value
         this.props.sdk.entry.fields.code.setValue(code);
-        this.setState({code}, () => {
-            this.generateStyledCode()
-        });
+        this.setState({code}, () => this.generateStyledCode());
     }
 
     onStyledCodeChangeHandler = event => {
@@ -113,7 +117,7 @@ export class App extends React.Component {
     }
 
     render() {
-        const {title, language, theme, styledCode} = this.state;
+        const {title, language, theme, code, styledCode} = this.state;
         const isLanguageEditable = this.isLanguageEditable;
         const isThemeEditable = this.isThemeEditable;
 
@@ -132,7 +136,9 @@ export class App extends React.Component {
                     />
                     <SectionHeading>Language</SectionHeading>
                     <FieldGroup>
-                        <Select onChange={this.onLanguageChangeHandler}
+                        <Select
+                                testId="field-language"
+                                onChange={this.onLanguageChangeHandler}
                                 value={language}
                                 isDisabled={!isLanguageEditable}>
                             {hljs.listLanguages().map(language => <Option key={language}
@@ -141,13 +147,19 @@ export class App extends React.Component {
                     </FieldGroup>
                     <SectionHeading>Highlight Theme</SectionHeading>
                     <FieldGroup>
-                        <Select onChange={this.onThemeChangeHandler}
+                        <Select
+                                testId="field-theme"
+                                onChange={this.onThemeChangeHandler}
                                 value={theme}
                                 isDisabled={!isThemeEditable}>
                             {THEMES.map(theme => <Option key={theme} value={theme}>{theme}</Option>)}
                         </Select>
                     </FieldGroup>
                     <SectionHeading>Code Snippet</SectionHeading>
+                    <TextInput hidden
+                               value={code}
+                               testId="field-code"
+                               onChange={this.onCodeChangeHandler}/>
                     <ContentEditable
                             style={{border: '1px solid #d3dce0', minHeight: '50px'}}
                             className={`hljs ${language}`}
