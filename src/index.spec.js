@@ -84,5 +84,36 @@ describe('App', () => {
             expect(sdk.entry.fields.code.setValue).toHaveBeenCalledWith('var life = "jazz";');
         });
 
+        it('should read the instance parameter language and set accordingly', () => {
+            const enrichedSdk = {
+                ...sdk,
+                parameters: {
+                    instance: {
+                        language: 'javascript'
+                    }
+                }
+            }
+
+            // sdk.entry.fields.code.getValue.mockReturnValue('var vampire = "look out!";');
+            const {getByTestId} = renderComponent(enrichedSdk);
+
+            expect(getByTestId('field-language').value).toEqual('javascript');
+        });
+
+        it('should read the instance parameter theme and set accordingly', () => {
+            const enrichedSdk = {
+                ...sdk,
+                parameters: {
+                    instance: {
+                        theme: 'dracula'
+                    }
+                }
+            }
+
+            // sdk.entry.fields.code.getValue.mockReturnValue('var vampire = "look out!";');
+            const {getByTestId} = renderComponent(enrichedSdk);
+
+            expect(getByTestId('field-theme').value).toEqual('dracula');
+        });
     })
 });

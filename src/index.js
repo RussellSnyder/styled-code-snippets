@@ -37,7 +37,7 @@ export class App extends React.Component {
         super(props);
 
         let defaultTheme, defaultLanguage;
-        if (props.sdk.parameters) {
+        if (props.sdk.parameters && props.sdk.parameters.instance) {
             const { theme, language } = props.sdk.parameters.instance;
             defaultTheme = theme;
             defaultLanguage = language
