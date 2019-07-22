@@ -79,10 +79,8 @@ To run tests:
 ```
     npm run test
 ```
-Please note that for now, highlight.min.js is not working for tests, so the full version of highlight.js must be imported.
-The full package, however, is too big for contentful hosting.  See TODO in index.js
 
-- If highlight.js builds more styles into their framework, run the following from the project root to extract:
+If more styles are added to the highlight.js package, they can be extracted using the following node script:
 ```
     node src/generateStyles
 ```
