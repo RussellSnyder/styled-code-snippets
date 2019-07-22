@@ -35,6 +35,12 @@ install dependencies
 ```
 npm i
 ```
+log in to contentful using the contentful CLI login command
+```
+contentful login
+```
+Follow the instructions to enter your access token
+
 fire up the dev server
 ```
 npm run start

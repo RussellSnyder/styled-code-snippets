@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {render} from 'react-dom';
-
-// For testing, use the full highlight.js package
-// TODO add conditional imports based on node environment
-// minimified for production and complete for test
-// import hljs from './highlight.min.js'
 import hljs from 'highlight.js'
 
 import ContentEditable from 'react-contenteditable'
