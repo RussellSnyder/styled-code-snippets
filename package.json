@@ -15,7 +15,7 @@
     "contentful-cli": "0.33.2",
     "cssnano": "4.1.10",
     "eslint": "^6.0.1",
-    "highlight.js": "^9.15.8"
+    "highlight.js": "^10.1.2"
   },
   "scripts": {
     "start": "contentful-extension-scripts start",
